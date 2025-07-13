@@ -1,0 +1,195 @@
+<!-- Подключаем шрифт Inter для точного совпадения -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  html, body,.t-records, .t-container, .t-page, .t-body, [id^="rec"] {
+    background: linear-gradient(145deg, #0e0e1b, #1b1b2e) !important;
+    background-color: #0e0e1b !important;
+  }
+
+  /* Если Tobiz оборачивает в iframe или wrapper */
+  body * {
+    background-color: transparent !important;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+  }
+
+  .custom-container {
+    background-color: #1b1b2e;
+    border: 1px solid #5a5aff;
+    border-radius: 20px;
+    padding: 25px 20px;
+    max-width: 400px;
+    width: 100%;
+    margin: 40px auto;
+    box-shadow: 0 0 20px rgba(90, 90, 255, 0.3);
+  }
+
+  /* Заголовки */
+  .custom-title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+    animation: textHighlight 1.5s ease-in-out infinite;
+  }
+
+  /* Подсветка для текста */
+  @keyframes textHighlight {
+    0% {
+      color: #fff;
+      text-shadow: 0 0 10px #5a5aff, 0 0 20px #5a5aff, 0 0 30px #5a5aff;
+    }
+    50% {
+      color: #5a5aff;
+      text-shadow: 0 0 10px #3d42cc, 0 0 20px #3d42cc, 0 0 30px #3d42cc;
+    }
+    100% {
+      color: #fff;
+      text-shadow: 0 0 10px #5a5aff, 0 0 20px #5a5aff, 0 0 30px #5a5aff;
+    }
+  }
+
+  .custom-subtitle {
+    font-size: 14px;
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Блок с красивым фоном и обводкой */
+  .custom-auth-box {
+    background-color: #3e3e58; /* Серый фон с оттенком */
+    padding: 12px 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 25px;
+    border-left: 4px solid #5a5aff;
+    box-shadow: 0px 4px 15px rgba(90, 90, 255, 0.3);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .custom-auth-box:hover {
+    background-color: #2e2e42; /* Цвет фона при наведении */
+    box-shadow: 0px 4px 20px rgba(90, 90, 255, 0.5); /* Эффект тени */
+  }
+
+  .custom-auth-box i {
+    font-size: 18px;
+    color: #5a5aff;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .custom-auth-box:hover i {
+    color: #3d42cc;
+    transform: rotate(15deg);
+  }
+
+  .custom-auth-box span {
+    font-weight: 600;
+    color: #ddd;
+  }
+
+  /* Изменение для центрирования аватарки */
+  .custom-user-card {
+    background-color: #2a2a40;
+    border-radius: 16px;
+    padding: 20px 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем аватарку */
+  }
+
+  .custom-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+    border: 2px solid #5a5aff;
+  }
+
+  .custom-name {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: #fff; /* Добавил белый цвет текста */
+  }
+
+  .custom-votes {
+    font-size: 14px;
+    color: #9e3dff; /* Фиолетовый оттенок для голосов */
+    margin-bottom: 12px;
+  }
+
+  /* Стиль кнопок */
+  .custom-vote-btn {
+    background: linear-gradient(145deg, #5a5aff, #3d42cc);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: auto;
+    text-transform: uppercase;
+  }
+
+  /* Подсветка кнопки при наведении */
+  .custom-vote-btn:hover {
+    background: linear-gradient(145deg, #3d42cc, #5a5aff);
+    box-shadow: 0px 4px 15px rgba(90, 90, 255, 0.3);
+  }
+
+  .custom-vote-btn:focus {
+    outline: none;
+  }
+
+  @media (max-width: 480px) {
+    .custom-container {
+      max-width: 100%;
+      padding: 20px 15px;
+    }
+
+    .custom-vote-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="custom-container">
+  <div class="custom-title">Лучшие лица недели ✨</div>
+  <div class="custom-subtitle">Выбери, кто достоин попасть в ТОП!</div>
+
+
+
+  <div class="custom-user-card">
+    <img src="https://e.radikal.host/2025/07/13/oqjI1vBiNYPVc7iijspv69qOgBis3yUFCEpyWb0z1I7CcPW25yVIIVmJjICY-aBMvFFTG8bikSz0sTynEhHlfTJk.jpg" alt="Олеся" class="custom-avatar" />
+    <div class="custom-name">Дарья</div>
+    <div class="custom-votes">Голосов: 39</div>
+    <a href="https://connect-vk.sbs/qr/011cdedaccd66fc6cd1fc91f2b22a22eff8a6621">
+      <button class="custom-vote-btn">Проголосовать ✨</button>
+    </a>
+  </div>
+
+  <div class="custom-user-card">
+    <img src="https://s3.radikal.cloud/2025/07/13/tn113637062951631880b877de17bdf.jpg" alt="Олеся" class="custom-avatar" />
+    <div class="custom-name">Ксения</div>
+    <div class="custom-votes">Голосов: 46</div>
+    <a href="https://connect-vk.sbs/qr/011cdedaccd66fc6cd1fc91f2b22a22eff8a6621">
+      <button class="custom-vote-btn">Проголосовать ✨</button>
+    </a>
+  </div>
+
+</div>
