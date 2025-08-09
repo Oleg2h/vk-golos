@@ -2,206 +2,170 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Признание для Елизаветы от Наиля 💫</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Для Елизаветы от Наиля</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-  /* Крутой фон с анимацией волн и звезд */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   body, html {
-    margin: 0; padding: 0; height: 100%;
-    overflow: hidden;
-    background: #0d0f2e;
-    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background: #000;
     color: #fff;
+    overflow: hidden;
+  }
+
+  .video-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.6);
+  }
+
+  .container {
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-
-  /* Анимированные волны на фоне */
-  .wave-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    overflow: hidden;
-    z-index: 0;
-  }
-  .wave {
-    position: absolute;
-    bottom: 0;
-    width: 200%;
-    height: 40vh;
-    background: linear-gradient(120deg, #ff4e50, #f9d423);
-    opacity: 0.3;
-    border-radius: 35% 65% 40% 60% / 60% 35% 65% 40%;
-    animation: waveMove 12s linear infinite;
-    filter: drop-shadow(0 0 10px #ff4e50);
-  }
-  .wave:nth-child(2) {
-    background: linear-gradient(120deg, #42e695, #3bb2b8);
-    bottom: 5vh;
-    opacity: 0.2;
-    animation-duration: 18s;
-    border-radius: 45% 55% 35% 65% / 55% 45% 65% 35%;
-    filter: drop-shadow(0 0 10px #3bb2b8);
-  }
-  @keyframes waveMove {
-    0% { transform: translateX(0) translateY(0) rotate(0deg); }
-    50% { transform: translateX(-25%) translateY(-10px) rotate(3deg); }
-    100% { transform: translateX(0) translateY(0) rotate(0deg); }
-  }
-
-  /* Звёздочки */
-  .stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0; left: 0;
-    pointer-events: none;
-    overflow: visible;
-    z-index: 0;
-  }
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    filter: drop-shadow(0 0 5px #fff);
-    animation: twinkle 3s infinite alternate;
-  }
-  @keyframes twinkle {
-    from { opacity: 0.2; transform: scale(1); }
-    to { opacity: 1; transform: scale(1.3); }
-  }
-
-  /* Основной контейнер */
-  .love-container {
-    position: relative;
-    background: rgba(0,0,0,0.5);
-    padding: 45px 50px 60px 50px;
-    border-radius: 30px;
-    box-shadow: 0 0 60px rgba(255, 94, 97, 0.8);
-    max-width: 460px;
     text-align: center;
-    z-index: 10;
-    user-select: none;
+    padding: 20px;
+    padding-bottom: 80px; /* место под плеер */
   }
 
-  /* Заголовок */
-  .love-title {
+  h1 {
     font-family: 'Pacifico', cursive;
-    font-size: 4rem;
+    font-size: 3.5rem;
     margin-bottom: 15px;
-    color: #ff5e61;
-    text-shadow:
-      0 0 10px #ff5e61,
-      0 0 20px #ff2c2f,
-      0 0 30px #ff2c2f,
-      0 0 40px #ff5e61;
+    text-shadow: 2px 2px 6px #ff69b4;
   }
 
-  /* Анимированный текст */
-  .love-text {
-    font-size: 1.4rem;
-    line-height: 1.7;
-    color: #ffd7d9;
-    margin-bottom: 40px;
+  p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px #ff69b4;
   }
-  .love-text span {
+
+  .heart {
+    font-size: 4rem;
+    color: #ff2d55;
+    animation: heartbeat 1.5s infinite;
+    margin-bottom: 30px;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    background: #ff2d55;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 10px #ff2d55aa;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #e0244d;
+  }
+
+  /* fade in animation */
+  .fade-in {
     opacity: 0;
-    display: inline-block;
-    animation: fadeScaleMove 0.8s forwards;
-  }
-  @keyframes fadeScaleMove {
-    0% { opacity: 0; transform: scale(0.85) translateY(20px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
+    animation: fadeInText 2s forwards;
   }
 
-  /* Пульсирующее сердце */
-  .heart-big {
-    font-size: 7rem;
-    color: #ff4e50;
-    margin-bottom: 25px;
-    animation: pulseHeart 1.5s ease-in-out infinite;
-    text-shadow: 0 0 25px #ff4e50, 0 0 50px #ff1f23;
-  }
-  @keyframes pulseHeart {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
+  @keyframes fadeInText {
+    to {
+      opacity: 1;
+    }
   }
 
-  /* Подпись */
-  .signature {
-    font-style: italic;
-    font-weight: 700;
-    color: #ffa1a3;
-    font-size: 1.1rem;
-  }
-
-  /* Мобильная адаптация */
-  @media (max-width: 480px) {
-    .love-container {
-      padding: 35px 20px 45px 20px;
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 1.2rem;
       max-width: 90vw;
     }
-    .love-title {
-      font-size: 2.8rem;
+    .heart {
+      font-size: 3rem;
+      margin-bottom: 20px;
     }
-    .love-text {
-      font-size: 1.15rem;
+    button {
+      font-size: 1rem;
+      padding: 10px 25px;
     }
-    .heart-big {
-      font-size: 5rem;
-      margin-bottom: 18px;
-    }
+  }
+
+  /* Позиционирование аудиоплеера */
+  .audio-player {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 15px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 15px #ff2d55aa;
+  }
+
+  .audio-player audio {
+    width: 100%;
+    outline: none;
   }
 </style>
 </head>
 <body>
 
-<div class="wave-bg" aria-hidden="true">
-  <div class="wave"></div>
-  <div class="wave"></div>
+<video class="video-bg" autoplay muted loop playsinline>
+  <source src="https://cdn.pixabay.com/vimeo/436338961/romantic-nature-10295.mp4?width=640&hash=59913e0a2e70ef87211e30f18c8b91a4d53f6e3c" type="video/mp4" />
+  Ваш браузер не поддерживает видео.
+</video>
+
+<div class="container">
+  <h1 class="fade-in" style="animation-delay: 0.5s;">Елизавета,</h1>
+  <p class="fade-in" style="animation-delay: 1.5s;">
+    Ты — мое вдохновение, свет и радость каждого дня.<br />
+    Спасибо, что ты есть в моей жизни.<br />
+    Я люблю тебя больше, чем слова могут сказать.
+  </p>
+  <div class="heart fade-in" style="animation-delay: 2.5s;">❤️</div>
+  <button class="fade-in" style="animation-delay: 3.5s;" onclick="alert('Люблю тебя, Елизавета! Наиль ❤️')">С любовью, Наиль</button>
 </div>
 
-<div class="stars" aria-hidden="true"></div>
-
-<div class="love-container" role="main" aria-label="Признание в любви для Елизаветы">
-  <div class="heart-big" aria-hidden="true">❤️</div>
-  <h1 class="love-title">Елизавета, ты мой огонь!</h1>
-  <div class="love-text" aria-live="polite" aria-atomic="true" aria-relevant="text">
-    <!-- Здесь будут слова -->
-  </div>
-  <div class="signature">С любовью и уважением, Наиль 💫</div>
+<div class="audio-player">
+  <audio controls autoplay loop>
+    <source src="https://cdn.jsdelivr.net/gh/kostya2508/music-archive/mot-mari-kraymbreri-ty-dolzhna-ryadom-byt.mp3" type="audio/mpeg" />
+    Ваш браузер не поддерживает аудио.
+  </audio>
 </div>
-
-<script>
-  // Звёзды на фоне
-  const starsContainer = document.querySelector('.stars');
-  for(let i=0; i<60; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.width = star.style.height = (Math.random()*2 + 1) + 'px';
-    star.style.top = Math.random() * 100 + 'vh';
-    star.style.left = Math.random() * 100 + 'vw';
-    star.style.animationDuration = (2 + Math.random()*3) + 's';
-    starsContainer.appendChild(star);
-  }
-
-  // Слова признания
-  const words = [
-    "Ты", "вдохновляешь", "каждый", "мой", "день,", "ты", "моё", "счастье", "и", "муза."
-  ];
-
-  const loveText = document.querySelector('.love-text');
-
-  words.forEach((word, i) => {
-    const span = document.createElement('span');
-    span.textContent = word + (i !== words.length - 1 ? " " : "");
-    span.style.animationDelay = `${0.6 + i * 0.7}s`;
-    loveText.appendChild(span);
-  });
-</script>
 
 </body>
 </html>
