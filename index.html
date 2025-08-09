@@ -1,252 +1,245 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Голосование — Выбор Лучшего</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Признание в любви для Елизаветы 💖</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Roboto:wght@400;700&display=swap');
 
-    /* Reset */
-    * {
-      margin: 0; padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      user-select: none;
-    }
-    body {
-      background: linear-gradient(135deg, #1e2a78, #14315c);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      color: #eef2f7;
-    }
+  /* Фон с переливами */
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    user-select: none;
+  }
 
-    .voting-container {
-      background: rgba(30, 42, 120, 0.85);
-      border-radius: 20px;
-      padding: 35px 30px;
-      max-width: 460px;
-      width: 100%;
-      box-shadow:
-        0 0 20px rgba(120, 160, 255, 0.6),
-        inset 0 0 10px rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+  /* Анимированный фон с легкими сердечками */
+  .hearts {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 50% 50%, #fff0, #ffcee4);
+    opacity: 0.6;
+    animation-timing-function: ease-out;
+    transform-origin: center bottom;
+  }
+  .heart:before, .heart:after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff477e;
+    border-radius: 50%;
+    top: 0;
+    left: 10px;
+  }
+  .heart:after {
+    left: 0;
+    top: 10px;
+  }
+  @keyframes floatUp {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.8) rotate(0deg);
     }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-150vh) scale(1.3) rotate(45deg);
+    }
+  }
 
-    .voting-title {
-      text-align: center;
-      font-weight: 600;
-      font-size: 2.2rem;
-      margin-bottom: 25px;
-      letter-spacing: 1.3px;
-      text-shadow: 0 0 10px #8aaaffcc;
-    }
+  /* Основной контейнер с текстом */
+  .container {
+    position: relative;
+    z-index: 10;
+    max-width: 460px;
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 0 30px rgba(255, 114, 139, 0.7);
+    backdrop-filter: blur(12px);
+    text-align: center;
+  }
 
-    .candidate-list {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
+  /* Большой заголовок с шрифтом рукописным */
+  h1 {
+    font-family: 'Sacramento', cursive;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px #ff3e6c;
+  }
 
-    .candidate {
-      display: flex;
-      align-items: center;
-      background: linear-gradient(145deg, #293f99, #1f2a73);
-      padding: 18px 18px 18px 15px;
-      border-radius: 16px;
-      box-shadow: 0 0 12px #5678f0aa;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      position: relative;
-    }
-    .candidate:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 25px #94b3ffcc;
-    }
+  /* Слово по слову появление */
+  .phrase {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+  }
 
-    .avatar {
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #5d7aff;
-      box-shadow: 0 0 8px #85a0ffcc;
-      flex-shrink: 0;
-      margin-right: 18px;
-      transition: box-shadow 0.3s ease;
-    }
-    .candidate:hover .avatar {
-      box-shadow: 0 0 20px #b4c8ff;
-    }
+  .word {
+    opacity: 0;
+    display: inline-block;
+    animation: fadeInUp 1.3s forwards;
+    animation-delay: var(--delay);
+    color: #ffe3ea;
+    font-weight: 600;
+    text-shadow: 0 0 8px #ff8fa4;
+    margin: 0 3px;
+  }
 
-    .candidate-info {
-      flex-grow: 1;
-      color: #c8d6ff;
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
     }
-    .candidate-name {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-      letter-spacing: 0.8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .candidate-name .badge {
-      background: #5577ff;
-      color: #e5e9ff;
-      font-size: 0.85rem;
-      padding: 2px 8px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #5577ffcc;
-      user-select: none;
-      animation: badgeGlow 3s ease-in-out infinite;
-    }
-    @keyframes badgeGlow {
-      0%, 100% { box-shadow: 0 0 10px #5577ffcc; }
-      50% { box-shadow: 0 0 20px #aabbffcc; }
-    }
-
-    .votes-count {
-      font-size: 1rem;
-      color: #a0b0ffcc;
-      letter-spacing: 0.5px;
-      user-select: none;
-    }
-
-    .vote-btn {
-      background: linear-gradient(145deg, #405bd8, #566efa);
-      border: none;
-      border-radius: 16px;
-      color: #e4e8ff;
-      font-weight: 600;
-      padding: 12px 28px;
-      font-size: 1rem;
-      box-shadow: 0 0 12px #5d75ffcc;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all 0.25s ease;
-      user-select: none;
-      outline-offset: 3px;
-      outline-color: transparent;
-      outline-style: solid;
-    }
-    .vote-btn:hover:not(:disabled) {
-      background: linear-gradient(145deg, #566efa, #405bd8);
-      box-shadow: 0 0 25px #a5b6ffcc;
-      transform: translateY(-3px);
-    }
-    .vote-btn:active:not(:disabled) {
+    100% {
+      opacity: 1;
       transform: translateY(0);
-      box-shadow: 0 0 12px #5d75ffcc;
     }
-    .vote-btn:disabled {
-      background: #3a3e68;
-      box-shadow: none;
-      cursor: default;
-      color: #7a7d99;
-    }
+  }
 
-    /* Анимация + эффект при голосовании */
-    .candidate.voted {
-      box-shadow: 0 0 25px #3bff93cc !important;
-      transform: scale(1.08) !important;
-      animation: votePulse 1.2s ease forwards;
-    }
-    @keyframes votePulse {
-      0% {
-        box-shadow: 0 0 25px #3bff93cc;
-        transform: scale(1.08);
-      }
-      100% {
-        box-shadow: 0 0 12px #2fae6bcc;
-        transform: scale(1);
-      }
-    }
+  /* Подпись */
+  .signature {
+    margin-top: 35px;
+    font-size: 1rem;
+    font-style: italic;
+    color: #ffd1dc;
+    text-shadow: 0 0 6px #ff5470;
+  }
 
-    /* Responsive */
-    @media (max-width: 520px) {
-      .voting-container {
-        padding: 25px 20px;
-      }
-      .candidate {
-        flex-direction: column;
-        align-items: center;
-        gap: 14px;
-        padding: 20px 15px;
-      }
-      .avatar {
-        width: 110px;
-        height: 110px;
-        margin-right: 0;
-      }
-      .candidate-info {
-        text-align: center;
-      }
-      .vote-btn {
-        width: 100%;
-        font-size: 1.1rem;
-        padding: 14px 0;
-      }
-    }
+  /* Эффект пульсации сердца */
+  .heart-icon {
+    font-size: 5rem;
+    color: #ff3355;
+    margin-bottom: 25px;
+    animation: heartbeat 1.5s infinite;
+    user-select: none;
+    text-shadow: 0 0 10px #ff5070, 0 0 20px #ff5070;
+  }
 
-  </style>
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  /* Мобильная адаптация */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 3rem;
+    }
+    .phrase {
+      font-size: 1.1rem;
+    }
+    .heart-icon {
+      font-size: 4rem;
+    }
+  }
+</style>
 </head>
 <body>
 
-  <div class="voting-container" role="main" aria-label="Голосование за лучших">
-    <h1 class="voting-title">Голосование за Лучшее Лицо</h1>
-    <div class="candidate-list" role="list">
+<div class="hearts" aria-hidden="true"></div>
 
-      <div class="candidate" data-id="1" role="listitem" tabindex="0" aria-label="Кандидат Лена, 12 голосов">
-        <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Фото Лена" class="avatar" />
-        <div class="candidate-info">
-          <div class="candidate-name">Лена <span class="badge" aria-hidden="true">🔥</span></div>
-          <div class="votes-count" id="votes-1">Голосов: 12</div>
-        </div>
-        <button class="vote-btn" aria-pressed="false" aria-label="Проголосовать за Лену" onclick="castVote(1, this)">Голосовать</button>
-      </div>
-
-      <div class="candidate" data-id="2" role="listitem" tabindex="0" aria-label="Кандидат Оля, 9 голосов">
-        <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Фото Оля" class="avatar" />
-        <div class="candidate-info">
-          <div class="candidate-name">Оля <span class="badge" aria-hidden="true">🔥</span></div>
-          <div class="votes-count" id="votes-2">Голосов: 9</div>
-        </div>
-        <button class="vote-btn" aria-pressed="false" aria-label="Проголосовать за Олю" onclick="castVote(2, this)">Голосовать</button>
-      </div>
-
-    </div>
+<div class="container" role="main" aria-label="Признание в любви для Елизаветы">
+  <div class="heart-icon" aria-hidden="true">❤️</div>
+  <h1>Елизавета</h1>
+  <div class="phrase" aria-live="polite" aria-atomic="true" aria-relevant="text" aria-label="Признание">
+    <!-- Тут появятся слова -->
   </div>
+  <div class="signature">От всего сердца, твой Наиль ❤️</div>
+</div>
 
-  <script>
-    // Голосование: обновляет счетчик и визуал эффект
-    function castVote(id, btn) {
-      // Блокируем кнопку сразу
-      btn.disabled = true;
-      btn.setAttribute('aria-pressed', 'true');
-      btn.textContent = 'Спасибо!';
+<script>
+  // Создаём плавающие сердечки
+  const heartsContainer = document.querySelector('.hearts');
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.width = heart.style.height = (10 + Math.random() * 20) + 'px';
+    heart.style.animationDuration = (5 + Math.random() * 4) + 's';
+    heart.style.animationDelay = '0s';
+    heart.style.opacity = Math.random() * 0.6 + 0.4;
+    heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+    heartsContainer.appendChild(heart);
 
-      const votesElem = document.getElementById(`votes-${id}`);
-      let currentVotes = parseInt(votesElem.textContent.replace(/\D/g, ''), 10);
-      currentVotes++;
-      votesElem.textContent = `Голосов: ${currentVotes}`;
+    setTimeout(() => {
+      heart.remove();
+    }, 9000);
+  }
+  setInterval(createHeart, 350);
 
-      // Эффект для карточки
-      const candidateCard = btn.closest('.candidate');
-      candidateCard.classList.add('voted');
+  // Слова для признания (можешь добавить или изменить)
+  const words = [
+    "Елизавета,", 
+    "ты", 
+    "самое", 
+    "прекрасное", 
+    "что", 
+    "есть", 
+    "в", 
+    "моей", 
+    "жизни.", 
+    "Твои", 
+    "глаза", 
+    "светят", 
+    "ярче", 
+    "звёзд.", 
+    "Сердце", 
+    "моё", 
+    "бьётся", 
+    "только", 
+    "для", 
+    "тебя.", 
+    "Ты —", 
+    "мой", 
+    "солнечный", 
+    "лучик,", 
+    "мой", 
+    "вечный", 
+    "огонь,", 
+    "моя", 
+    "любовь.", 
+    "Спасибо,", 
+    "что", 
+    "ты", 
+    "есть."
+  ];
 
-      setTimeout(() => {
-        candidateCard.classList.remove('voted');
-        btn.disabled = false;
-        btn.setAttribute('aria-pressed', 'false');
-        btn.textContent = 'Голосовать';
-      }, 2000);
-    }
-  </script>
+  const phraseContainer = document.querySelector('.phrase');
+
+  function showWords() {
+    phraseContainer.innerHTML = "";
+    words.forEach((word, i) => {
+      const span = document.createElement('span');
+      span.className = 'word';
+      span.textContent = word;
+      span.style.setProperty('--delay', `${i * 0.5}s`);
+      phraseContainer.appendChild(span);
+    });
+  }
+  showWords();
+
+</script>
 
 </body>
 </html>
