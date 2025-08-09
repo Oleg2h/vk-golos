@@ -3,294 +3,321 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Лучшие лица недели</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <title>ТОП Лиц Недели — Голосование</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    html, body {
-      background: linear-gradient(145deg, #0e0e1b, #1b1b2e);
-      font-family: 'Inter', sans-serif;
-      color: #fff;
-      margin: 0;
-      padding: 0;
+    /* Базовые стили */
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      background: radial-gradient(ellipse at center, #0a0a1f 0%, #120d3a 100%);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      color: #eee;
     }
 
-    .custom-container {
+    /* Волшебный фон с движущимися линиями */
+    #backgroundCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, #1c1c44, #0f0f2f);
+      mix-blend-mode: screen;
+    }
+
+    /* Основной контейнер */
+    .container {
       position: relative;
-      background: rgba(27, 27, 46, 0.95);
-      border: 1px solid #5a5aff;
+      z-index: 10;
+      max-width: 480px;
+      margin: 60px auto 100px auto;
+      background: rgba(20, 20, 50, 0.85);
+      border-radius: 25px;
+      padding: 40px 30px 50px 30px;
+      box-shadow:
+        0 0 20px #5f5fff,
+        inset 0 0 50px #3b3b9e;
+      border: 2px solid #5f5fff;
+      backdrop-filter: blur(15px);
+    }
+
+    /* Заголовок */
+    .title {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #a0aaff;
+      text-shadow:
+        0 0 8px #5f5fff,
+        0 0 20px #9090ff;
+      margin-bottom: 15px;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 8px #5f5fff, 0 0 20px #9090ff; }
+      50% { text-shadow: 0 0 15px #aaffff, 0 0 30px #aaffff; }
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #bbb;
+      margin-bottom: 35px;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+
+    /* Карточки кандидатов */
+    .candidate-card {
+      position: relative;
+      background: linear-gradient(145deg, #292955, #1c1c44);
       border-radius: 20px;
-      padding: 40px 20px;
-      max-width: 420px;
-      margin: 40px auto;
-      box-shadow: 0 0 25px rgba(90, 90, 255, 0.4);
-      overflow: hidden;
-      z-index: 1; /* Поверх фигур */
-    }
-
-    /* Контейнер с вращающимися фигурами по центру */
-    .bg-shapes {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 200px;
-      height: 200px;
-      transform: translate(-50%, -50%);
-      pointer-events: none; /* Чтобы не мешать кликам */
-      z-index: 0;
-    }
-
-    /* Общие стили для фигур */
-    .shape {
-      position: absolute;
-      opacity: 0.15;
-      filter: drop-shadow(0 0 4px #5a5aff);
-    }
-
-    /* Вертушка - треугольник */
-    .triangle {
-      width: 80px;
-      height: 80px;
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      background: linear-gradient(45deg, #5a5aff, #3d42cc);
-      animation: rotateShape 15s linear infinite;
-      top: 50%;
-      left: 50%;
-      transform-origin: 50% 75%;
-    }
-
-    /* Вертушка - круг */
-    .circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #5a5aff, transparent 70%);
-      animation: rotateShapeReverse 20s linear infinite;
-      top: 50%;
-      left: 50%;
-      transform-origin: center;
-    }
-
-    /* Маленькие фигуры вокруг */
-    .triangle.small {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(45deg, #3d42cc, #5a5aff);
-      animation-duration: 10s;
-      top: 20%;
-      left: 30%;
-      transform-origin: 50% 75%;
-    }
-
-    .circle.small {
-      width: 30px;
-      height: 30px;
-      background: radial-gradient(circle, #3d42cc, transparent 70%);
-      animation-duration: 12s;
-      top: 75%;
-      left: 70%;
-      transform-origin: center;
-    }
-
-    @keyframes rotateShape {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes rotateShapeReverse {
-      from { transform: rotate(360deg); }
-      to { transform: rotate(0deg); }
-    }
-
-    .custom-title {
-      font-size: 24px;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 10px;
-      animation: titleGlow 2s ease-in-out infinite;
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes titleGlow {
-      0%, 100% { text-shadow: 0 0 10px #5a5aff, 0 0 20px #5a5aff; }
-      50% { text-shadow: 0 0 10px #3d42cc, 0 0 20px #3d42cc; }
-    }
-
-    .custom-subtitle {
-      font-size: 14px;
-      color: #ccc;
-      text-align: center;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .divider {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #5a5aff, transparent);
-      margin: 15px 0;
-      animation: shine 3s linear infinite;
-      background-size: 200% 100%;
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes shine {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    .custom-user-card {
-      background-color: #2a2a40;
-      border-radius: 16px;
-      padding: 20px 15px;
-      margin-bottom: 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .custom-user-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                        radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 20px 20px;
-      background-position: 0 0, 10px 10px;
-      z-index: 0;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      display: inline-block;
-      z-index: 1;
-    }
-    .avatar-wrapper::before {
-      content: "";
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      right: -5px;
-      bottom: -5px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,215,0,0.6), transparent 70%);
-      animation: avatarGlow 2s ease-in-out infinite;
-      z-index: -1;
-    }
-    @keyframes avatarGlow {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.1); }
-    }
-
-    .custom-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #F5F5F5;
-    }
-
-    .custom-name {
-      font-weight: 600;
-      font-size: 18px;
-      margin-bottom: 4px;
+      margin-bottom: 30px;
+      padding: 25px 20px 30px 20px;
+      box-shadow:
+        0 0 15px #3d3dbb80;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       display: flex;
       align-items: center;
+      gap: 20px;
+      overflow: hidden;
+    }
+    .candidate-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px #6a6affcc;
+    }
+
+    /* Аватар */
+    .avatar {
+      flex-shrink: 0;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid #8ea1ff;
+      object-fit: cover;
+      filter: drop-shadow(0 0 6px #6a6aff);
+      transition: filter 0.3s ease;
+    }
+    .candidate-card:hover .avatar {
+      filter: drop-shadow(0 0 12px #aafcff);
+    }
+
+    /* Информация */
+    .info {
+      flex-grow: 1;
+      color: #ddd;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
       gap: 6px;
-      position: relative;
-      z-index: 1;
+      user-select: text;
     }
 
-    .custom-icon {
-      font-size: 18px;
-      color: gold;
-      animation: iconPulse 1.5s ease-in-out infinite;
-    }
-    @keyframes iconPulse {
-      0%, 100% { transform: scale(1); color: gold; }
-      50% { transform: scale(1.3); color: #FFD700; }
-    }
-
-    .custom-votes {
-      font-size: 14px;
-      color: #9e3dff;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
+    .name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      color: #a8bbff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .custom-vote-btn {
-      background: linear-gradient(145deg, #5a5aff, #3d42cc);
-      color: white;
+    /* Звезда */
+    .star {
+      font-size: 1.7rem;
+      color: #f1c40f;
+      animation: starTwinkle 2s infinite ease-in-out;
+      user-select: none;
+    }
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .votes {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #90a0ff;
+      letter-spacing: 0.5px;
+      user-select: none;
+    }
+
+    /* Кнопка */
+    .vote-btn {
+      background: linear-gradient(145deg, #3e48e7, #5a60ff);
       border: none;
-      border-radius: 12px;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 600;
+      border-radius: 14px;
+      padding: 12px 25px;
+      color: #eef1ff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 0 12px #5a60ffcc;
       cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
+      transition: all 0.3s ease;
+      user-select: none;
+      flex-shrink: 0;
+      align-self: center;
     }
-    .custom-vote-btn:hover {
-      background: linear-gradient(145deg, #3d42cc, #5a5aff);
-      box-shadow: 0px 4px 15px rgba(90, 90, 255, 0.4);
-      transform: translateY(-2px);
+    .vote-btn:hover {
+      background: linear-gradient(145deg, #5a60ff, #3e48e7);
+      box-shadow: 0 0 25px #a6b3ff;
+      transform: translateY(-4px);
+    }
+    .vote-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 0 12px #5a60ffcc;
     }
 
-    @media (max-width: 480px) {
-      .custom-container {
-        max-width: 95%;
-        padding: 20px 15px;
+    /* Responsive */
+    @media (max-width: 520px) {
+      .container {
+        margin: 30px 20px 50px 20px;
+        padding: 30px 20px 40px 20px;
       }
-      .custom-vote-btn {
+      .candidate-card {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+      }
+      .avatar {
+        width: 100px;
+        height: 100px;
+      }
+      .vote-btn {
         width: 100%;
+        font-size: 1.1rem;
+        padding: 14px 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="custom-container">
-    <div class="bg-shapes">
-      <div class="shape triangle"></div>
-      <div class="shape circle"></div>
-      <div class="shape triangle small"></div>
-      <div class="shape circle small"></div>
+
+<canvas id="backgroundCanvas"></canvas>
+
+<div class="container">
+  <div class="title">Лучшие Лица Недели</div>
+  <div class="subtitle">Выбери того, кто достоин быть на вершине!</div>
+
+  <div class="candidate-card" data-id="1">
+    <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Лиза" class="avatar" />
+    <div class="info">
+      <div class="name">Лиза <span class="star">⭐</span></div>
+      <div class="votes" id="votes-1">Голосов: 25</div>
     </div>
-
-    <div class="custom-title">Лучшие лица недели ✨</div>
-    <div class="custom-subtitle">Выбери, кто достоин попасть в ТОП!</div>
-
-    <div class="divider"></div>
-
-    <div class="custom-user-card">
-      <div class="avatar-wrapper">
-        <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Лиза" class="custom-avatar" />
-      </div>
-      <div class="custom-name">
-        Лиза <span class="custom-icon">⭐</span>
-      </div>
-      <div class="custom-votes">Голосов: 25</div>
-      <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
-        <button class="custom-vote-btn">Проголосовать ✨</button>
-      </a>
-    </div>
-
-    <div class="custom-user-card">
-      <div class="avatar-wrapper">
-        <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Елизавета" class="custom-avatar" />
-      </div>
-      <div class="custom-name">
-        Елизавета <span class="custom-icon">⭐</span>
-      </div>
-      <div class="custom-votes">Голосов: 29</div>
-      <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
-        <button class="custom-vote-btn">Проголосовать ✨</button>
-      </a>
-    </div>
-
+    <button class="vote-btn" onclick="vote(1)">Голосовать</button>
   </div>
+
+  <div class="candidate-card" data-id="2">
+    <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Елизавета" class="avatar" />
+    <div class="info">
+      <div class="name">Елизавета <span class="star">⭐</span></div>
+      <div class="votes" id="votes-2">Голосов: 29</div>
+    </div>
+    <button class="vote-btn" onclick="vote(2)">Голосовать</button>
+  </div>
+
+</div>
+
+<script>
+  // Функция голосования с анимацией и обновлением счетчика
+  function vote(id) {
+    const voteElem = document.getElementById(`votes-${id}`);
+    let currentVotes = parseInt(voteElem.textContent.replace(/\D/g, ''), 10);
+    currentVotes++;
+    voteElem.textContent = `Голосов: ${currentVotes}`;
+
+    // Красивый анимированный всплеск на кнопке
+    const card = document.querySelector(`.candidate-card[data-id='${id}']`);
+    const btn = card.querySelector('.vote-btn');
+    btn.disabled = true;
+    btn.textContent = 'Спасибо!';
+
+    btn.style.background = '#44cc88';
+    btn.style.boxShadow = '0 0 15px #44cc88';
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = 'Голосовать';
+      btn.style.background = '';
+      btn.style.boxShadow = '';
+    }, 2000);
+  }
+
+  // Анимация фона с линиями на canvas
+  const canvas = document.getElementById('backgroundCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  const lines = [];
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Создаем линии для анимации
+  class Line {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.length = 100 + Math.random() * 150;
+      this.speed = 0.1 + Math.random() * 0.3;
+      this.angle = Math.random() * Math.PI * 2;
+      this.width = 1 + Math.random() * 2;
+      this.color = `rgba(90, 90, 255, 0.15)`;
+    }
+    update() {
+      this.angle += this.speed * 0.01;
+      this.x += Math.cos(this.angle) * 0.2;
+      this.y += Math.sin(this.angle) * 0.2;
+
+      if (this.x < -this.length) this.x = width + this.length;
+      if (this.x > width + this.length) this.x = -this.length;
+      if (this.y < -this.length) this.y = height + this.length;
+      if (this.y > height + this.length) this.y = -this.length;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.strokeStyle = this.color;
+      ctx.lineWidth = this.width;
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(
+        this.x + Math.cos(this.angle) * this.length,
+        this.y + Math.sin(this.angle) * this.length
+      );
+      ctx.stroke();
+    }
+  }
+
+  for(let i = 0; i < 70; i++) {
+    lines.push(new Line());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    for (let line of lines) {
+      line.update();
+      line.draw();
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+</script>
+
 </body>
 </html>
