@@ -29,7 +29,7 @@
     overflow: hidden;
   }
 
-  /* Лёгкие фоновые блики */
+  /* Лёгкие фоновые блики контейнера */
   .custom-container::before {
     content: "";
     position: absolute;
@@ -84,13 +84,48 @@
     margin-bottom: 20px;
     text-align: center;
     position: relative;
+    overflow: hidden;
+  }
+
+  /* Фоновый узор внутри карточки */
+  .custom-user-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                      radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    z-index: 0;
+  }
+
+  /* Сияние аватарки */
+  .avatar-wrapper {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+  }
+  .avatar-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.6), transparent 70%);
+    animation: avatarGlow 2s ease-in-out infinite;
+    z-index: -1;
+  }
+  @keyframes avatarGlow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
   }
 
   .custom-avatar {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    margin-bottom: 10px;
     object-fit: cover;
     border: 2px solid #F5F5F5;
   }
@@ -103,9 +138,10 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
+    z-index: 1;
+    position: relative;
   }
 
-  /* Иконки рядом с именем */
   .custom-icon {
     font-size: 18px;
     color: gold;
@@ -120,6 +156,8 @@
     font-size: 14px;
     color: #9e3dff;
     margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
   }
 
   .custom-vote-btn {
@@ -133,6 +171,8 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     text-transform: uppercase;
+    position: relative;
+    z-index: 1;
   }
   .custom-vote-btn:hover {
     background: linear-gradient(145deg, #3d42cc, #5a5aff);
@@ -158,7 +198,9 @@
   <div class="divider"></div>
 
   <div class="custom-user-card">
-    <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Лиза" class="custom-avatar" />
+    <div class="avatar-wrapper">
+      <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Лиза" class="custom-avatar" />
+    </div>
     <div class="custom-name">
       Лиза <span class="custom-icon">👑</span>
     </div>
@@ -169,7 +211,9 @@
   </div>
 
   <div class="custom-user-card">
-    <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Елизавета" class="custom-avatar" />
+    <div class="avatar-wrapper">
+      <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Елизавета" class="custom-avatar" />
+    </div>
     <div class="custom-name">
       Елизавета <span class="custom-icon">💫</span>
     </div>
