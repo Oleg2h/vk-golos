@@ -3,242 +3,188 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Признание в любви для Елизаветы 💖</title>
+<title>Для Елизаветы — Любовь в каждом пикселе 💘</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Roboto:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;700&display=swap');
 
-  /* Фон с переливами */
-  body {
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  /* Общие стили */
+  body, html {
+    margin: 0; padding: 0; height: 100%;
     overflow: hidden;
-    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+  }
+
+  /* Контейнер */
+  .love-container {
+    position: relative;
+    background: rgba(255,255,255,0.1);
+    padding: 40px 50px;
+    border-radius: 30px;
+    box-shadow: 0 0 40px rgba(255, 115, 140, 0.9);
+    max-width: 460px;
+    text-align: center;
+    z-index: 10;
+  }
+
+  /* Заголовок */
+  .love-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.8rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #ff3e6c, 0 0 20px #ff3e6c;
     user-select: none;
   }
 
-  /* Анимированный фон с легкими сердечками */
-  .hearts {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .heart {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle at 50% 50%, #fff0, #ffcee4);
-    opacity: 0.6;
-    animation-timing-function: ease-out;
-    transform-origin: center bottom;
-  }
-  .heart:before, .heart:after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #ff477e;
-    border-radius: 50%;
-    top: 0;
-    left: 10px;
-  }
-  .heart:after {
-    left: 0;
-    top: 10px;
-  }
-  @keyframes floatUp {
-    0% {
-      opacity: 0;
-      transform: translateY(0) scale(0.8) rotate(0deg);
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-150vh) scale(1.3) rotate(45deg);
-    }
-  }
-
-  /* Основной контейнер с текстом */
-  .container {
-    position: relative;
-    z-index: 10;
-    max-width: 460px;
-    background: rgba(255 255 255 / 0.1);
-    border-radius: 20px;
-    padding: 40px 30px;
-    box-shadow: 0 0 30px rgba(255, 114, 139, 0.7);
-    backdrop-filter: blur(12px);
-    text-align: center;
-  }
-
-  /* Большой заголовок с шрифтом рукописным */
-  h1 {
-    font-family: 'Sacramento', cursive;
-    font-size: 4rem;
-    margin-bottom: 20px;
-    text-shadow: 0 0 8px #ff3e6c;
-  }
-
-  /* Слово по слову появление */
-  .phrase {
+  /* Анимация текста — плавное появление с масштабом */
+  .love-text {
     font-size: 1.3rem;
     line-height: 1.6;
-    max-height: 100px;
-    overflow: hidden;
-    position: relative;
+    margin-bottom: 30px;
   }
-
-  .word {
+  .love-text span {
     opacity: 0;
     display: inline-block;
-    animation: fadeInUp 1.3s forwards;
-    animation-delay: var(--delay);
-    color: #ffe3ea;
-    font-weight: 600;
-    text-shadow: 0 0 8px #ff8fa4;
-    margin: 0 3px;
+    animation: fadeScale 0.7s forwards;
   }
-
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @keyframes fadeScale {
+    0% { opacity: 0; transform: scale(0.8) translateY(15px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
   }
 
   /* Подпись */
   .signature {
-    margin-top: 35px;
-    font-size: 1rem;
     font-style: italic;
     color: #ffd1dc;
-    text-shadow: 0 0 6px #ff5470;
-  }
-
-  /* Эффект пульсации сердца */
-  .heart-icon {
-    font-size: 5rem;
-    color: #ff3355;
-    margin-bottom: 25px;
-    animation: heartbeat 1.5s infinite;
+    font-size: 1rem;
     user-select: none;
-    text-shadow: 0 0 10px #ff5070, 0 0 20px #ff5070;
   }
 
-  @keyframes heartbeat {
+  /* Эффект мерцания сердца */
+  .heart-big {
+    font-size: 6rem;
+    color: #ff2f6c;
+    margin-bottom: 25px;
+    animation: pulseHeart 1.3s infinite;
+    user-select: none;
+    text-shadow: 0 0 15px #ff4c83, 0 0 30px #ff4c83;
+  }
+  @keyframes pulseHeart {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* Анимация появления поочередно */
+  .love-text span:nth-child(1) { animation-delay: 0.3s; }
+  .love-text span:nth-child(2) { animation-delay: 0.8s; }
+  .love-text span:nth-child(3) { animation-delay: 1.3s; }
+  .love-text span:nth-child(4) { animation-delay: 1.8s; }
+  .love-text span:nth-child(5) { animation-delay: 2.3s; }
+  .love-text span:nth-child(6) { animation-delay: 2.8s; }
+  .love-text span:nth-child(7) { animation-delay: 3.3s; }
+  .love-text span:nth-child(8) { animation-delay: 3.8s; }
+  .love-text span:nth-child(9) { animation-delay: 4.3s; }
+
+  /* Частицы-сердечки на фоне */
+  .particles {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle at center, #ff4c83, #ff1a4e);
+    clip-path: polygon(50% 0%, 61% 14%, 75% 14%, 80% 25%, 75% 35%, 50% 60%, 25% 35%, 20% 25%, 25% 14%, 39% 14%);
+    opacity: 0.8;
+    animation-timing-function: ease-out;
+  }
+  @keyframes floatUpParticle {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0.6) rotate(0deg);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-130vh) scale(1.1) rotate(360deg);
+    }
   }
 
   /* Мобильная адаптация */
   @media (max-width: 480px) {
-    h1 {
-      font-size: 3rem;
+    .love-container {
+      padding: 30px 20px;
+      max-width: 90vw;
     }
-    .phrase {
+    .love-title {
+      font-size: 2.8rem;
+    }
+    .love-text {
       font-size: 1.1rem;
     }
-    .heart-icon {
-      font-size: 4rem;
+    .heart-big {
+      font-size: 4.5rem;
+      margin-bottom: 18px;
     }
   }
 </style>
 </head>
 <body>
 
-<div class="hearts" aria-hidden="true"></div>
+<div class="particles" aria-hidden="true"></div>
 
-<div class="container" role="main" aria-label="Признание в любви для Елизаветы">
-  <div class="heart-icon" aria-hidden="true">❤️</div>
-  <h1>Елизавета</h1>
-  <div class="phrase" aria-live="polite" aria-atomic="true" aria-relevant="text" aria-label="Признание">
-    <!-- Тут появятся слова -->
+<div class="love-container" role="main" aria-label="Признание в любви для Елизаветы">
+  <div class="heart-big" aria-hidden="true">💖</div>
+  <h1 class="love-title">Елизавета, ты — мой космос!</h1>
+  <div class="love-text" aria-live="polite" aria-atomic="true" aria-relevant="text">
+    <!-- Слова будут вставлены скриптом -->
   </div>
-  <div class="signature">От всего сердца, твой Наиль ❤️</div>
+  <div class="signature">С любовью, навсегда твой Наиль ❤️</div>
 </div>
 
 <script>
-  // Создаём плавающие сердечки
-  const heartsContainer = document.querySelector('.hearts');
-  function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.width = heart.style.height = (10 + Math.random() * 20) + 'px';
-    heart.style.animationDuration = (5 + Math.random() * 4) + 's';
-    heart.style.animationDelay = '0s';
-    heart.style.opacity = Math.random() * 0.6 + 0.4;
-    heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-    heartsContainer.appendChild(heart);
+  // Создаём анимированные частицы-сердечки
+  const particlesContainer = document.querySelector('.particles');
+  function createParticle() {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.width = p.style.height = (8 + Math.random() * 10) + 'px';
+    p.style.animationDuration = (6 + Math.random() * 5) + 's';
+    p.style.animationDelay = '0s';
+    p.style.opacity = 0.6 + Math.random() * 0.4;
+    p.style.transform = `rotate(${Math.random() * 360}deg)`;
+    particlesContainer.appendChild(p);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 9000);
+    p.style.animationName = 'floatUpParticle';
+
+    setTimeout(() => p.remove(), 11000);
   }
-  setInterval(createHeart, 350);
+  setInterval(createParticle, 300);
 
-  // Слова для признания (можешь добавить или изменить)
+  // Слова для признания с задержкой поочередного появления
   const words = [
-    "Елизавета,", 
-    "ты", 
-    "самое", 
-    "прекрасное", 
-    "что", 
-    "есть", 
-    "в", 
-    "моей", 
-    "жизни.", 
-    "Твои", 
-    "глаза", 
-    "светят", 
-    "ярче", 
-    "звёзд.", 
-    "Сердце", 
-    "моё", 
-    "бьётся", 
-    "только", 
-    "для", 
-    "тебя.", 
-    "Ты —", 
-    "мой", 
-    "солнечный", 
-    "лучик,", 
-    "мой", 
-    "вечный", 
-    "огонь,", 
-    "моя", 
-    "любовь.", 
-    "Спасибо,", 
-    "что", 
-    "ты", 
-    "есть."
+    "Ты", "сама", "яркая", "звезда", "в", "моём", "небе,", "мой", "вечный", "огонь."
   ];
 
-  const phraseContainer = document.querySelector('.phrase');
+  const loveText = document.querySelector('.love-text');
 
-  function showWords() {
-    phraseContainer.innerHTML = "";
-    words.forEach((word, i) => {
-      const span = document.createElement('span');
-      span.className = 'word';
-      span.textContent = word;
-      span.style.setProperty('--delay', `${i * 0.5}s`);
-      phraseContainer.appendChild(span);
-    });
-  }
-  showWords();
-
+  words.forEach((word, i) => {
+    const span = document.createElement('span');
+    span.textContent = word + (i !== words.length - 1 ? " " : "");
+    span.style.animationDelay = `${0.5 + i * 0.6}s`;
+    loveText.appendChild(span);
+  });
 </script>
 
 </body>
