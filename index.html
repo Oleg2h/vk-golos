@@ -1,172 +1,108 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>Для Елизаветы от Наиля</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body, html {
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    background: #000;
-    color: #fff;
-    overflow: hidden;
-  }
-
-  .video-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1;
-    filter: brightness(0.6);
-  }
-
-  .container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    padding-bottom: 80px; /* место под плеер */
-  }
-
-  h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 3.5rem;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 6px #ff69b4;
-  }
-
-  p {
-    font-size: 1.5rem;
-    max-width: 600px;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px 4px #ff69b4;
-  }
-
-  .heart {
-    font-size: 4rem;
-    color: #ff2d55;
-    animation: heartbeat 1.5s infinite;
-    margin-bottom: 30px;
-  }
-
-  @keyframes heartbeat {
-    0%, 100% {
-      transform: scale(1);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Поздравление для Елизаветы от Наиля</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
     }
-    50% {
-      transform: scale(1.2);
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
-  }
-
-  button {
-    padding: 12px 30px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 30px;
-    background: #ff2d55;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 4px 10px #ff2d55aa;
-    transition: background 0.3s ease;
-  }
-
-  button:hover {
-    background: #e0244d;
-  }
-
-  /* fade in animation */
-  .fade-in {
-    opacity: 0;
-    animation: fadeInText 2s forwards;
-  }
-
-  @keyframes fadeInText {
-    to {
-      opacity: 1;
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px;
     }
-  }
-
-  /* Адаптивность */
-  @media (max-width: 768px) {
     h1 {
-      font-size: 2.5rem;
-    }
-    p {
-      font-size: 1.2rem;
-      max-width: 90vw;
-    }
-    .heart {
+      font-family: 'Pacifico', cursive;
       font-size: 3rem;
       margin-bottom: 20px;
+      text-shadow: 2px 2px 6px #ff69b4;
+    }
+    p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      text-shadow: 1px 1px 4px #ff69b4;
+    }
+    .heart {
+      font-size: 4rem;
+      color: #ff2d55;
+      margin: 20px 0;
+      animation: heartbeat 1.5s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
     }
     button {
-      font-size: 1rem;
-      padding: 10px 25px;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 30px;
+      background: #ff2d55;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px #ff2d55aa;
+      transition: background 0.3s ease;
     }
-  }
-
-  /* Позиционирование аудиоплеера */
-  .audio-player {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 600px;
-    background: rgba(0,0,0,0.6);
-    border-radius: 15px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 0 15px #ff2d55aa;
-  }
-
-  .audio-player audio {
-    width: 100%;
-    outline: none;
-  }
-</style>
+    button:hover {
+      background: #e0244d;
+    }
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1.2rem;
+        max-width: 90vw;
+      }
+      .heart {
+        font-size: 3rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 10px 25px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<video class="video-bg" autoplay muted loop playsinline>
-  <source src="https://cdn.pixabay.com/vimeo/436338961/romantic-nature-10295.mp4?width=640&hash=59913e0a2e70ef87211e30f18c8b91a4d53f6e3c" type="video/mp4" />
-  Ваш браузер не поддерживает видео.
-</video>
+  <iframe class="video-bg" src="https://www.youtube.com/embed/hpfIbtTWZRw?autoplay=1&controls=0&loop=1&playlist=hpfIbtTWZRw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-<div class="container">
-  <h1 class="fade-in" style="animation-delay: 0.5s;">Елизавета,</h1>
-  <p class="fade-in" style="animation-delay: 1.5s;">
-    Ты — мое вдохновение, свет и радость каждого дня.<br />
-    Спасибо, что ты есть в моей жизни.<br />
-    Я люблю тебя больше, чем слова могут сказать.
-  </p>
-  <div class="heart fade-in" style="animation-delay: 2.5s;">❤️</div>
-  <button class="fade-in" style="animation-delay: 3.5s;" onclick="alert('Люблю тебя, Елизавета! Наиль ❤️')">С любовью, Наиль</button>
-</div>
-
-<div class="audio-player">
-  <audio controls autoplay loop>
-    <source src="https://zvuk.com/track/109488106" type="audio/mpeg" />
-    Ваш браузер не поддерживает аудио.
-  </audio>
-</div>
+  <div class="content">
+    <h1>Елизавета,</h1>
+    <p>
+      Ты — мое вдохновение, свет и радость каждого дня.<br>
+      Спасибо, что ты есть в моей жизни.<br>
+      Я люблю тебя больше, чем слова могут сказать.
+    </p>
+    <div class="heart">❤️</div>
+    <button onclick="alert('Люблю тебя, Елизавета! Наиль ❤️')">С любовью, Наиль</button>
+  </div>
 
 </body>
 </html>
-
