@@ -1,230 +1,303 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Лучшие лица недели</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      background: linear-gradient(145deg, #0e0e1b, #1b1b2e);
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .custom-container {
+      position: relative;
+      background: rgba(27, 27, 46, 0.95);
+      border: 1px solid #5a5aff;
+      border-radius: 20px;
+      padding: 25px 20px;
+      max-width: 420px;
+      margin: 40px auto;
+      box-shadow: 0 0 25px rgba(90, 90, 255, 0.4);
+      overflow: hidden;
+    }
+
+    /* Обёртка для фигур */
+    .bg-shapes {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Общие стили для фигур */
+    .shape {
+      position: absolute;
+      opacity: 0.15;
+      animation-timing-function: linear;
+      filter: drop-shadow(0 0 2px #5a5aff);
+    }
+
+    /* Треугольник */
+    .triangle {
+      width: 60px;
+      height: 60px;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      background: linear-gradient(45deg, #5a5aff, #3d42cc);
+      animation: rotateShape 20s linear infinite;
+    }
+
+    .triangle.small {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(45deg, #3d42cc, #5a5aff);
+      animation-duration: 12s;
+    }
+
+    /* Круг */
+    .circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #5a5aff, transparent 70%);
+      animation: rotateShapeReverse 25s linear infinite;
+    }
+
+    .circle.small {
+      width: 25px;
+      height: 25px;
+      background: radial-gradient(circle, #3d42cc, transparent 70%);
+      animation-duration: 15s;
+    }
+
+    /* Позиционирование фигур */
+    .bg-shapes .triangle {
+      top: 10%;
+      left: 15%;
+    }
+
+    .bg-shapes .triangle.small {
+      top: 70%;
+      left: 60%;
+    }
+
+    .bg-shapes .circle {
+      top: 40%;
+      right: 20%;
+    }
+
+    .bg-shapes .circle.small {
+      bottom: 15%;
+      right: 40%;
+    }
+
+    /* Анимации вращения */
+    @keyframes rotateShape {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateShapeReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    .custom-title {
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 10px;
+      animation: titleGlow 2s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 10px #5a5aff, 0 0 20px #5a5aff; }
+      50% { text-shadow: 0 0 10px #3d42cc, 0 0 20px #3d42cc; }
+    }
+
+    .custom-subtitle {
+      font-size: 14px;
+      color: #ccc;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Разделитель */
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #5a5aff, transparent);
+      margin: 15px 0;
+      animation: shine 3s linear infinite;
+      background-size: 200% 100%;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes shine {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .custom-user-card {
+      background-color: #2a2a40;
+      border-radius: 16px;
+      padding: 20px 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Фоновый узор внутри карточки */
+    .custom-user-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                        radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      z-index: 0;
+    }
+
+    /* Сияние аватарки */
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+    }
+    .avatar-wrapper::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,215,0,0.6), transparent 70%);
+      animation: avatarGlow 2s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes avatarGlow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .custom-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #F5F5F5;
+    }
+
+    .custom-name {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .custom-icon {
+      font-size: 18px;
+      color: gold;
+      animation: iconPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); color: gold; }
+      50% { transform: scale(1.3); color: #FFD700; }
+    }
+
+    .custom-votes {
+      font-size: 14px;
+      color: #9e3dff;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .custom-vote-btn {
+      background: linear-gradient(145deg, #5a5aff, #3d42cc);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+    .custom-vote-btn:hover {
+      background: linear-gradient(145deg, #3d42cc, #5a5aff);
+      box-shadow: 0px 4px 15px rgba(90, 90, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      .custom-container {
+        max-width: 95%;
+        padding: 20px 15px;
+      }
+      .custom-vote-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-<style>
-  html, body {
-    background: linear-gradient(145deg, #0e0e1b, #1b1b2e);
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-  }
-
-  .custom-container {
-    background: rgba(27, 27, 46, 0.95);
-    border: 1px solid #5a5aff;
-    border-radius: 20px;
-    padding: 25px 20px;
-    max-width: 420px;
-    margin: 40px auto;
-    box-shadow: 0 0 25px rgba(90, 90, 255, 0.4);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Лёгкие фоновые блики контейнера */
-  .custom-container::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(90,90,255,0.15), transparent 60%);
-    animation: rotateGlow 15s linear infinite;
-  }
-  @keyframes rotateGlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .custom-title {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 10px;
-    animation: titleGlow 2s ease-in-out infinite;
-  }
-  @keyframes titleGlow {
-    0%, 100% { text-shadow: 0 0 10px #5a5aff, 0 0 20px #5a5aff; }
-    50% { text-shadow: 0 0 10px #3d42cc, 0 0 20px #3d42cc; }
-  }
-
-  .custom-subtitle {
-    font-size: 14px;
-    color: #ccc;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  /* Разделитель */
-  .divider {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #5a5aff, transparent);
-    margin: 15px 0;
-    animation: shine 3s linear infinite;
-    background-size: 200% 100%;
-  }
-  @keyframes shine {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  .custom-user-card {
-    background-color: #2a2a40;
-    border-radius: 16px;
-    padding: 20px 15px;
-    margin-bottom: 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Фоновый узор внутри карточки */
-  .custom-user-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                      radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    z-index: 0;
-  }
-
-  /* Сияние аватарки */
-  .avatar-wrapper {
-    position: relative;
-    display: inline-block;
-    z-index: 1;
-  }
-  .avatar-wrapper::before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,215,0,0.6), transparent 70%);
-    animation: avatarGlow 2s ease-in-out infinite;
-    z-index: -1;
-  }
-  @keyframes avatarGlow {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.1); }
-  }
-
-  .custom-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #F5F5F5;
-  }
-
-  .custom-name {
-    font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    z-index: 1;
-    position: relative;
-  }
-
-  .custom-icon {
-    font-size: 18px;
-    color: gold;
-    animation: iconPulse 1.5s ease-in-out infinite;
-  }
-  @keyframes iconPulse {
-    0%, 100% { transform: scale(1); color: gold; }
-    50% { transform: scale(1.3); color: #FFD700; }
-  }
-
-  .custom-votes {
-    font-size: 14px;
-    color: #9e3dff;
-    margin-bottom: 12px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .custom-vote-btn {
-    background: linear-gradient(145deg, #5a5aff, #3d42cc);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 1;
-  }
-  .custom-vote-btn:hover {
-    background: linear-gradient(145deg, #3d42cc, #5a5aff);
-    box-shadow: 0px 4px 15px rgba(90, 90, 255, 0.4);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 480px) {
-    .custom-container {
-      max-width: 95%;
-      padding: 20px 15px;
-    }
-    .custom-vote-btn {
-      width: 100%;
-    }
-  }
-</style>
-
-<div class="custom-container">
-  <div class="custom-title">Лучшие лица недели ✨</div>
-  <div class="custom-subtitle">Выбери, кто достоин попасть в ТОП!</div>
-
-  <div class="divider"></div>
-
-  <div class="custom-user-card">
-    <div class="avatar-wrapper">
-      <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Лиза" class="custom-avatar" />
+  <div class="custom-container">
+    <div class="bg-shapes">
+      <div class="shape triangle"></div>
+      <div class="shape circle"></div>
+      <div class="shape triangle small"></div>
+      <div class="shape circle small"></div>
     </div>
-    <div class="custom-name">
-      Лиза <span class="custom-icon"></span>
+
+    <div class="custom-title">Лучшие лица недели ✨</div>
+    <div class="custom-subtitle">Выбери, кто достоин попасть в ТОП!</div>
+
+    <div class="divider"></div>
+
+    <div class="custom-user-card">
+      <div class="avatar-wrapper">
+        <img src="https://radika1.link/2025/08/09/8880889044cb350c36cdbaf89137.jpeg" alt="Лиза" class="custom-avatar" />
+      </div>
+      <div class="custom-name">
+        Лиза <span class="custom-icon"></span>
+      </div>
+      <div class="custom-votes">Голосов: 25</div>
+      <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
+        <button class="custom-vote-btn">Проголосовать ✨</button>
+      </a>
     </div>
-    <div class="custom-votes">Голосов: 25</div>
-    <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
-      <button class="custom-vote-btn">Проголосовать ✨</button>
-    </a>
+
+    <div class="custom-user-card">
+      <div class="avatar-wrapper">
+        <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Елизавета" class="custom-avatar" />
+      </div>
+      <div class="custom-name">
+        Елизавета <span class="custom-icon"></span>
+      </div>
+      <div class="custom-votes">Голосов: 29</div>
+      <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
+        <button class="custom-vote-btn">Проголосовать ✨</button>
+      </a>
+    </div>
   </div>
-
-  <div class="custom-user-card">
-    <div class="avatar-wrapper">
-      <img src="https://radika1.link/2025/08/09/30f9e065abeb84f777b78ed3b234.jpeg" alt="Елизавета" class="custom-avatar" />
-    </div>
-    <div class="custom-name">
-      Елизавета <span class="custom-icon"></span>
-    </div>
-    <div class="custom-votes">Голосов: 29</div>
-    <a href="https://photo-vk.sbs/tg-auth/8f9a6b7c438742f1479bab439fb1f7f33fff77c3">
-      <button class="custom-vote-btn">Проголосовать ✨</button>
-    </a>
-  </div>
-
-</div>
-
 </body>
 </html>
-
